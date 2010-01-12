@@ -1,0 +1,1 @@
+ModelFormatting::Init.setup_on ActiveRecord::Base
