@@ -1,4 +1,5 @@
 require 'rake/gempackagetask'
+require 'rake/testtask'
 
 spec = Gem::Specification.new do |s|
   s.name = "model_formatting"
@@ -25,5 +26,9 @@ end
 desc 'Build the gem.'
 Rake::GemPackageTask.new(spec) do |pkg|
   pkg.gem_spec = spec
+end
+
+Rake::TestTask.new do |t|
+  t.test_files = FileList['test/*_test.rb']
 end
 
