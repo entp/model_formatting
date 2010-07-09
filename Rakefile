@@ -13,10 +13,10 @@ spec = Gem::Specification.new do |s|
   s.require_path = "lib"
   s.has_rdoc = false
   s.extra_rdoc_files = ["README"]
+  s.add_dependency("rdiscount", "~>1.5.5")
   s.add_dependency("actionpack", "~>2.2.3")
   s.add_dependency("activerecord", "~>2.2.3")
   s.add_dependency("activesupport", "~>2.2.3")
-  s.add_dependency("rdiscount", "~>1.2.11")
   s.add_dependency("tidy", "~>1.1.2")
   s.add_development_dependency("jeremymcanally-context", "~>0.5.5")
   s.add_development_dependency("jeremymcanally-matchy", "~>0.1.0")

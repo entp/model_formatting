@@ -54,25 +54,20 @@ class ModelFormattingTest < Test::Unit::TestCase
     ModelFormatting::Config.new(nil, nil, nil).replace_vars("a:abc/:d_e_f/:foo!", :abc => 'bc', :d_e_f => '-').should == "abc/-/!"
   end
 
-  it "numbers lists separated by code blocks correctly" do
-    ModelFormatting.process(:html, "1. Stuff\n    not code\n2. More stuff\n@@@\nmore code\n@@@\n3. Even more stuff\n        code!\n4. ending").should == \
-      %(<div><ol>\n<li>Stuff<br/>\n not code</li>\n<li>More stuff<br/>\n<pre><code>more code</code>\n</pre></li>\n<li>Even more stuff<br/>\n\n\n<pre><code> code!</code></pre></li>\n<li>ending</li>\n</ol></div>)
-  end
-  
   it "links and encodes urls correctly" do
     ModelFormatting.process(:html, "a *b*  \n[Whoo](http://entp.com?a=1&b=2)").should == %(<div><p>a <em>b</em><br/>\n<a href="http://entp.com?a=1&amp;b=2">Whoo</a></p></div>)
   end
   
   it "converts @@@ to code blocks" do
-    ModelFormatting.process(:html, "<a>foo</a>\n\n@@@\n<a>bar</a>\n@@@\n\n@@@\nbaz\n@@@\n\n@@@ wah wah \n \n").should == %(<div><p><a>foo</a></p>\n\n<pre><code>&lt;a&gt;bar&lt;/a&gt;</code>\n</pre>\n\n\n<pre><code>baz</code>\n</pre>\n\n\n<p>@@@ wah wah </p></div>)
+    ModelFormatting.process(:html, "<a>foo</a>\n\n@@@\n<a>bar</a>\n@@@\n\n@@@\nbaz\n@@@\n\n@@@ wah wah \n \n").should == %(<div><p><a>foo</a></p>\n\n<pre><code>&lt;a&gt;bar&lt;/a&gt;</code>\n</pre>\n\n\n\n\n<pre><code>baz</code>\n</pre>\n\n\n<p>@@@ wah wah</p></div>)
   end
   
   it "converts @@@ with params to code blocks" do
-    ModelFormatting.process(:html, "foo\n@@@ ninja\nbar\n@@@\n@@@\nbaz\n@@@\n@@@ wah wah \n \n").should == %(<div><p>foo<br/>\n<pre><code class=\"ninja\">bar</code>\n</pre>\n<pre><code>baz</code>\n</pre>\n@@@ wah wah </p></div>)
+    ModelFormatting.process(:html, "foo\n@@@ ninja\nbar\n@@@\n@@@\nbaz\n@@@\n@@@ wah wah \n \n").should == %(<div><p>foo<br/>\n</p>\n\n<pre><code class=\"ninja\">bar</code>\n</pre>\n\n\n<pre><code>baz</code>\n</pre>\n\n\n<p>@@@ wah wah</p></div>)
   end
   
   it "fixes irregular number of @@@'s" do
-    ModelFormatting.process(:html, "foo\n@@@\nbar\n@@@\n@@@\nbaz\n@@@\n@@@ wah wah \n \n@@@").should == %(<div><p>foo<br/>\n<pre><code>bar</code>\n</pre>\n<pre><code>baz</code>\n</pre>\n@@@ wah wah </p>\n\n<pre><code></code>\n</pre></div>)
+    ModelFormatting.process(:html, "foo\n@@@\nbar\n@@@\n@@@\nbaz\n@@@\n@@@ wah wah \n \n@@@").should == %(<div><p>foo<br/>\n</p>\n\n<pre><code>bar</code>\n</pre>\n\n\n<pre><code>baz</code>\n</pre>\n\n\n<p>@@@ wah wah</p>\n\n<pre><code></code>\n</pre></div>)
   end
   
   it "converts @@@ with params to code blocks with text format" do
