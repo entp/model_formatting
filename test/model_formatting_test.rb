@@ -54,6 +54,10 @@ class ModelFormattingTest < Test::Unit::TestCase
     ModelFormatting::Config.new(nil, nil, nil).replace_vars("a:abc/:d_e_f/:foo!", :abc => 'bc', :d_e_f => '-').should == "abc/-/!"
   end
 
+  it "doesn't remove lines with pipes" do
+    ModelFormatting.process(:html, "Yo.\n\nhere is a | pipe\n\nfoobaz").should == %(<div><p>Yo.</p>\n\n<p>here is a | pipe</p>\n\n<p>foobaz</p></div>)
+  end
+  
   it "links and encodes urls correctly" do
     ModelFormatting.process(:html, "a *b*  \n[Whoo](http://entp.com?a=1&b=2)").should == %(<div><p>a <em>b</em><br/>\n<a href="http://entp.com?a=1&amp;b=2">Whoo</a></p></div>)
   end
