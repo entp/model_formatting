@@ -9,8 +9,7 @@ spec = Gem::Specification.new do |s|
   s.homepage = "http://github.com/entp"
   s.platform = Gem::Platform::RUBY
   s.summary = "Automatically format model attributes using rdiscount and Tender/Lighthouse extensions."
-  s.files = FileList['[a-zA-Z]*', 'lib/**/*', 'rails/**/*', 'test/**/*']
-  s.require_path = "lib"
+  s.files = FileList['[a-zA-Z]*', 'bin/*', 'lib/**/*', 'rails/**/*', 'test/**/*']
   s.has_rdoc = false
   s.extra_rdoc_files = ["README"]
   s.add_dependency("rdiscount", "~>1.5.5")

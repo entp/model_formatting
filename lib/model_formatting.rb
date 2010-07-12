@@ -1,4 +1,5 @@
 require 'cgi'
+require 'active_support' # NilClass#blank?
 module ModelFormatting
   class Part < Array
     attr_reader :format

@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby -rubygems
+require 'model_formatting'
+puts ModelFormatting.process(:html, STDIN.read)
+
