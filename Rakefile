@@ -3,7 +3,7 @@ require 'rake/testtask'
 
 spec = Gem::Specification.new do |s|
   s.name = "model_formatting"
-  s.version = "0.2.2"
+  s.version = "0.3.0"
   s.author = "ENTP"
   s.email = "company@entp.com"
   s.homepage = "http://github.com/entp"
@@ -13,9 +13,9 @@ spec = Gem::Specification.new do |s|
   s.has_rdoc = false
   s.extra_rdoc_files = ["README"]
   s.add_dependency("rdiscount", "~>1.6.5")
-  s.add_dependency("actionpack", "~>2.3.9")
-  s.add_dependency("activerecord", "~>2.3.9")
-  s.add_dependency("activesupport", "~>2.3.9")
+  s.add_dependency("actionpack", "~>3.0.0")
+  s.add_dependency("activerecord", "~>3.0.0")
+  s.add_dependency("activesupport", "~>3.0.0")
   s.add_dependency("tidy", "~>1.1.2")
   s.add_development_dependency("jeremymcanally-context", "~>0.5.5")
   s.add_development_dependency("jeremymcanally-matchy", "~>0.1.0")
