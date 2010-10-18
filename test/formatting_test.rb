@@ -47,6 +47,21 @@ module ModelFormatting
       end
     end
 
+    class BaseWithAfter < Base
+      formats :body do
+        after { |format, text, options| text }
+      end
+    end
+
+    describe "base with after callback" do
+      it "does not leave mkd-extraction artifacts" do
+        record = BaseWithAfter.new
+        record.body = File.read(File.dirname(__FILE__) + '/fixtures/mkd-extraction.txt')
+        record.save
+        assert_no_match /mkd-extraction/, record.formatted_body
+      end
+    end
+
     class Post < Base
       formats :body, :title => :title_html do
         attributes[:bio] = :full_bio
