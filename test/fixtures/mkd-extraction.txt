@@ -1,0 +1,15 @@
+# Busted markdown!
+
+<p><code>The missing code tag...</p>
+
+@@@
+will eat this code block!
+@@@
+
+Hard to fix but at least we can provide a warning!
+
+EDIT: omg fixed!
+
+<p><code>Additional code blocks below appear to trigger the bug.</code></p>
+
+
