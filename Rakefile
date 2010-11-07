@@ -3,7 +3,7 @@ require 'rake/testtask'
 
 spec = Gem::Specification.new do |s|
   s.name = "model_formatting"
-  s.version = "0.2.1"
+  s.version = "0.2.1.1"
   s.author = "ENTP"
   s.email = "company@entp.com"
   s.homepage = "http://github.com/entp"
