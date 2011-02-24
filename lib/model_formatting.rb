@@ -145,7 +145,8 @@ module ModelFormatting
     tag_names.each do |tag_name|
       text.gsub!(%r{<#{tag_name}[^>]*>.*?</#{tag_name}>}m) do |match|
         md5 = Digest::MD5.hexdigest(match)
-        extractions[md5] = match
+        extractions[md5] ||= []
+        extractions[md5] << match
         "{mkd-extraction-#{md5}}"
       end
     end
@@ -157,7 +158,9 @@ module ModelFormatting
     while !extractions.keys.empty?
       # Insert block extractions
       text.gsub!(/\{mkd-extraction-([0-9a-f]{32})\}/) do
-        extractions.delete($1)
+        value = extractions[$1].pop
+        extractions.delete($1) if extractions[$1].empty?
+        value
       end
     end
     text
