@@ -12,7 +12,7 @@ spec = Gem::Specification.new do |s|
   s.files = FileList['[a-zA-Z]*', 'bin/*', 'lib/**/*', 'rails/**/*', 'test/**/*']
   s.has_rdoc = false
   s.extra_rdoc_files = ["README"]
-  s.add_dependency("rdiscount", "~>1.6.5")
+  s.add_dependency("rdiscount", "~>1.5.8")
   s.add_dependency("actionpack", "~>2.2.3")
   s.add_dependency("activerecord", "~>2.2.3")
   s.add_dependency("activesupport", "~>2.2.3")
