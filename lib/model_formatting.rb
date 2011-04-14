@@ -145,14 +145,23 @@ module ModelFormatting
     tag_names.each do |tag_name|
       text.gsub!(%r{<#{tag_name}[^>]*>.*?</#{tag_name}>}m) do |match|
         md5 = Digest::MD5.hexdigest(match)
-        extractions[md5] = match
+        extractions[md5] ||= []
+        extractions[md5] << match
         "{mkd-extraction-#{md5}}"
       end
     end
     yield text
-    # Insert pre block extractions
-    text.gsub!(/\{mkd-extraction-([0-9a-f]{32})\}/) do
-      extractions[$1]
+    # In cases where multiple tag names are provided AND the tags mismatch or
+    # overlap in non-conforming ways, it's possible for extracted sections to
+    # have extractions in them. To keep content from being eaten by the markdown
+    # extractor, loop until all of the extractions have been replaced.
+    while !extractions.keys.empty?
+      # Insert block extractions
+      text.gsub!(/\{mkd-extraction-([0-9a-f]{32})\}/) do
+        value = extractions[$1].pop
+        extractions.delete($1) if extractions[$1].empty?
+        value
+      end
     end
     text
   end
@@ -174,12 +183,11 @@ module ModelFormatting
   end
 
   begin
-    gem 'rdiscount', '>= 1.2.7.1'
     require 'rdiscount'
     def self.process_markdown(text)
       RDiscount.new(text).to_html
     end
-  rescue Gem::LoadError
+  rescue LoadError
     puts "No RDiscount gem found.  `gem install rdiscount`."
     def self.process_markdown(text)
       text
@@ -187,7 +195,6 @@ module ModelFormatting
   end
 
   begin
-    gem 'tidy'
     require 'tidy'
     Tidy.path = ENV['TIDY_PATH'] unless ENV['TIDY_PATH'].blank?
     def self.process_tidy(text)
@@ -197,7 +204,7 @@ module ModelFormatting
         tidy.clean(text)
       end
     end
-  rescue Gem::LoadError
+  rescue LoadError
     puts "No Tidy gem found.  `gem install tidy`.  Don't forget to set Tidy.path."
     def self.process_tidy(text)
       text

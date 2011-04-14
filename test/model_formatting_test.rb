@@ -58,6 +58,10 @@ class ModelFormattingTest < Test::Unit::TestCase
     ModelFormatting.process(:html, "Yo.\n\nhere is a | pipe\n\nfoobaz").should == %(<div><p>Yo.</p>\n\n<p>here is a | pipe</p>\n\n<p>foobaz</p></div>)
   end
   
+  it "doesn't remove duplicate pre blocks" do
+    ModelFormatting.process(:html, "Yes! <pre>tacos</pre> are great.\n\nI love to eat <pre>tacos</pre> topped with <pre>tacos</pre>.\n\nYes.").should == %(<div><p>Yes! <pre>tacos</pre> are great.</p>\n\n<p>I love to eat <pre>tacos</pre> topped with <pre>tacos</pre>.</p>\n\n<p>Yes.</p></div>)
+  end
+  
   it "links and encodes urls correctly" do
     ModelFormatting.process(:html, "a *b*  \n[Whoo](http://entp.com?a=1&b=2)").should == %(<div><p>a <em>b</em><br/>\n<a href="http://entp.com?a=1&amp;b=2">Whoo</a></p></div>)
   end
@@ -67,11 +71,11 @@ class ModelFormattingTest < Test::Unit::TestCase
   end
   
   it "converts @@@ with params to code blocks" do
-    ModelFormatting.process(:html, "foo\n@@@ ninja\nbar\n@@@\n@@@\nbaz\n@@@\n@@@ wah wah \n \n").should == %(<div><p>foo</p>\n\n<pre><code class=\"ninja\">bar</code>\n</pre>\n\n\n<pre><code>baz</code>\n</pre>\n\n\n<p>@@@ wah wah</p></div>)
+    ModelFormatting.process(:html, "foo\n@@@ ninja\nbar\n@@@\n@@@\nbaz\n@@@\n@@@ wah wah \n \n").should == %(<div><p>foo<br/>\n</p>\n\n<pre><code class=\"ninja\">bar</code>\n</pre>\n\n\n<pre><code>baz</code>\n</pre>\n\n\n<p>@@@ wah wah</p></div>)
   end
   
   it "fixes irregular number of @@@'s" do
-    ModelFormatting.process(:html, "foo\n@@@\nbar\n@@@\n@@@\nbaz\n@@@\n@@@ wah wah \n \n@@@").should == %(<div><p>foo</p>\n\n<pre><code>bar</code>\n</pre>\n\n\n<pre><code>baz</code>\n</pre>\n\n\n<p>@@@ wah wah</p>\n\n<pre><code></code>\n</pre></div>)
+    ModelFormatting.process(:html, "foo\n@@@\nbar\n@@@\n@@@\nbaz\n@@@\n@@@ wah wah \n \n@@@").should == %(<div><p>foo<br/>\n</p>\n\n<pre><code>bar</code>\n</pre>\n\n\n<pre><code>baz</code>\n</pre>\n\n\n<p>@@@ wah wah</p>\n\n<pre><code></code>\n</pre></div>)
   end
   
   it "converts @@@ with params to code blocks with text format" do
