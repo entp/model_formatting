@@ -39,6 +39,13 @@ module ModelFormatting
         record.formatted_body.should == %(<div><p>booya</p></div>)
       end
       
+      it "bolds the string 'Name'" do
+        record = Simple.new
+        record.body = "My name is\n__Name__"
+        record.save
+        record.formatted_body.should == %(<div><p>My name is<br />\n<strong>Name</strong></p></div>)
+      end
+
       it "preserves leading spaces in code blocks" do
         record = Simple.new
         record.body = "    code\n    more code\n\nnot code\n\n"
