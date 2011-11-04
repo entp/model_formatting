@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/test_helper'
+require File.expand_path('../test_helper', __FILE__)
 
 module ModelFormatting
   class Test < Test::Unit::TestCase
@@ -43,14 +43,14 @@ module ModelFormatting
         record = Simple.new
         record.body = "My name is\n__Name__"
         record.save
-        record.formatted_body.should == %(<div><p>My name is<br />\n<strong>Name</strong></p></div>)
+        record.formatted_body.should == %(<div><p>My name is<br>\n<strong>Name</strong></p></div>)
       end
 
       it "preserves leading spaces in code blocks" do
         record = Simple.new
         record.body = "    code\n    more code\n\nnot code\n\n"
         record.save
-        record.formatted_body.should == %(<div><pre><code>code\nmore code</code></pre>\n\n<p>not code</p></div>)
+        record.formatted_body.should == %(<div><pre>\n<code>code\nmore code</code>\n</pre>\n<p>not code</p></div>)
       end
     end
 
@@ -108,7 +108,7 @@ module ModelFormatting
       end
 
       describe "being saved" do
-        before :all do
+        before do
           @record = Post.new
           @record.body  = 'booya'
           @record.title = 'wtf'
@@ -116,11 +116,11 @@ module ModelFormatting
         end
 
         it "formats #body" do
-          @record.formatted_body.should == %(<div>(<p>ayoob</p>)</div>)
+          @record.formatted_body.should == %(<div>(\n<p>ayoob</p>\n)</div>)
         end
 
         it "formats #title" do
-          @record.title_html.should == %(<div>(<p>ftw</p>)</div>)
+          @record.title_html.should == %(<div>(\n<p>ftw</p>\n)</div>)
         end
 
         it "formats #bio" do
@@ -162,7 +162,7 @@ module ModelFormatting
       end
 
       describe "being saved" do
-        before :all do
+        before do
           @record = ChildPost.new
           @record.body = 'booya'
           @record.bio  = 'wtf'
