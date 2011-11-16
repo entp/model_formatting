@@ -201,6 +201,7 @@ module ModelFormatting
       tidy.options.input_encoding = 'utf8'
       tidy.options.show_body_only = true
       tidy.options.new_inline_tags = "video"
+      tidy.options.force_output = true
       tidy.clean.strip
     end
   rescue LoadError
