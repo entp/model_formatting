@@ -3,7 +3,7 @@ require 'rake/testtask'
 
 spec = Gem::Specification.new do |s|
   s.name = "model_formatting"
-  s.version = "0.2.3.6"
+  s.version = "0.2.3.7"
   s.author = "ENTP"
   s.email = "company@entp.com"
   s.homepage = "http://github.com/entp"
@@ -17,7 +17,7 @@ spec = Gem::Specification.new do |s|
   s.add_dependency("activerecord", "~>2.3.9")
   s.add_dependency("activesupport", "~>2.3.9")
   s.add_dependency("tidy_ffi", "~>0.1.2")
-  s.add_development_dependency("jeremymcanally-context", "0.5.5")
+  s.add_development_dependency("jeremymcanally-context", "~>0.5.5")
   s.add_development_dependency("jeremymcanally-matchy", "~>0.1.0")
 end
 

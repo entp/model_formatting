@@ -49,9 +49,9 @@ module ModelFormatting
 
       it "preserves leading spaces in code blocks" do
         record = Simple.new
-        record.body = "    code\n    more code\n\nnot code\n\n"
+        record.body = "this\n\n    code\n    more code\n\nnot code\n\n"
         record.save
-        record.formatted_body.should == %(<div><pre>\n<code>code\nmore code</code>\n</pre>\n<p>not code</p></div>)
+        record.formatted_body.should == %(<div><p>this</p>\n<pre>\n<code>code\nmore code</code>\n</pre>\n<p>not code</p></div>)
       end
 
       it "converts unicode characters to html entities" do
