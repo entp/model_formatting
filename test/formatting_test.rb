@@ -38,13 +38,6 @@ module ModelFormatting
         record.save
         record.formatted_body.should == %(<div><p>booya</p></div>)
       end
-      
-      it "preserves leading spaces in code blocks" do
-        record = Simple.new
-        record.body = "    code\n    more code\n\nnot code\n\n"
-        record.save
-        record.formatted_body.should == %(<div><pre><code>code\nmore code</code></pre>\n\n<p>not code</p></div>)
-      end
     end
 
     class BaseWithAfter < Base
