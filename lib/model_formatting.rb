@@ -139,11 +139,11 @@ module ModelFormatting
     parts.each { |p| p.compact! }
   end
 
-  def self.extract_tag(text, *tag_names)
+  def self.extract_regex(text, *regexes)
     # Extract pre blocks
     extractions = {}
-    tag_names.each do |tag_name|
-      text.gsub!(%r{<#{tag_name}[^>]*>.*?</#{tag_name}>}m) do |match|
+    regexes.each do |regex|
+      text.gsub!(regex) do |match|
         md5 = Digest::MD5.hexdigest(match)
         extractions[md5] ||= []
         extractions[md5] << match
@@ -164,6 +164,16 @@ module ModelFormatting
       end
     end
     text
+  end
+
+  def self.tag_name_to_regex(name)
+    %r{<#{name}[^>]*>.*?</#{name}>}m
+  end
+
+  def self.extract_tag(text, *tag_names)
+    extract_regex text, *tag_names.map { |n| tag_name_to_regex(n) } do |text|
+      yield text
+    end
   end
 
   def self.gfm(text)
