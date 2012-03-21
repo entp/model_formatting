@@ -1,4 +1,5 @@
-require File.dirname(__FILE__) + '/test_helper'
+# encoding: utf-8
+require File.expand_path('../test_helper', __FILE__)
 
 module ModelFormatting
   class Test < Test::Unit::TestCase
@@ -37,6 +38,27 @@ module ModelFormatting
         record.body = 'booya'
         record.save
         record.formatted_body.should == %(<div><p>booya</p></div>)
+      end
+
+      it "bolds the string 'Name'" do
+        record = Simple.new
+        record.body = "My name is __Name__"
+        record.save
+        record.formatted_body.should == %(<div><p>My name is <strong>Name</strong></p></div>)
+      end
+
+      it "preserves leading spaces in code blocks" do
+        record = Simple.new
+        record.body = "this\n\n    code\n    more code\n\nnot code\n\n"
+        record.save
+        record.formatted_body.should == %(<div><p>this</p>\n<pre>\n<code>code\nmore code</code>\n</pre>\n<p>not code</p></div>)
+      end
+
+      it "converts unicode characters to html entities" do
+        record = Simple.new
+        record.body = "Encöded ɐ \\Upload \\upload"
+        record.save
+        record.formatted_body.should ==%(<div><p>Enc&ouml;ded &#592; \\Upload \\upload</p></div>)
       end
     end
 
@@ -94,7 +116,7 @@ module ModelFormatting
       end
 
       describe "being saved" do
-        before :all do
+        before do
           @record = Post.new
           @record.body  = 'booya'
           @record.title = 'wtf'
@@ -102,11 +124,11 @@ module ModelFormatting
         end
 
         it "formats #body" do
-          @record.formatted_body.should == %(<div>(<p>ayoob</p>)</div>)
+          @record.formatted_body.should == %(<div>(\n<p>ayoob</p>\n)</div>)
         end
 
         it "formats #title" do
-          @record.title_html.should == %(<div>(<p>ftw</p>)</div>)
+          @record.title_html.should == %(<div>(\n<p>ftw</p>\n)</div>)
         end
 
         it "formats #bio" do
@@ -148,7 +170,7 @@ module ModelFormatting
       end
 
       describe "being saved" do
-        before :all do
+        before do
           @record = ChildPost.new
           @record.body = 'booya'
           @record.bio  = 'wtf'
