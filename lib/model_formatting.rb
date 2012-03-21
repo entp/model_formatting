@@ -198,17 +198,17 @@ module ModelFormatting
   end
 
   begin
-    require 'tidy'
-    Tidy.path = ENV['TIDY_PATH'] unless ENV['TIDY_PATH'].blank?
+    require 'tidy_ffi'
     def self.process_tidy(text)
-      return text unless Tidy.path
-      Tidy.open(:show_body_only => true, :input_encoding => :utf8) do |tidy|
-        tidy.options.new_inline_tags = "video"
-        tidy.clean(text)
-      end
+      tidy = TidyFFI::Tidy.new(text)
+      tidy.options.input_encoding = 'utf8'
+      tidy.options.show_body_only = true
+      tidy.options.new_inline_tags = "video"
+      tidy.options.force_output = true
+      tidy.clean.strip
     end
   rescue LoadError
-    puts "No Tidy gem found.  `gem install tidy`.  Don't forget to set Tidy.path."
+    puts "No TidyFFI gem found.  `gem install tidy_ffi`."
     def self.process_tidy(text)
       text
     end

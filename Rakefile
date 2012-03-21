@@ -16,7 +16,7 @@ spec = Gem::Specification.new do |s|
   s.add_dependency("actionpack", "~>3.0.0")
   s.add_dependency("activerecord", "~>3.0.0")
   s.add_dependency("activesupport", "~>3.0.0")
-  s.add_dependency("tidy", "~>1.1.2")
+  s.add_dependency("tidy_ffi", "~>0.1.2")
   s.add_development_dependency("jeremymcanally-context", "~>0.5.5")
   s.add_development_dependency("jeremymcanally-matchy", "~>0.1.0")
 end
