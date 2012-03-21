@@ -179,15 +179,8 @@ module ModelFormatting
   def self.gfm(text)
     extract_tag(text, :pre) do |txt| 
       # prevent foo_bar_baz from ending up with an italic word in the middle
-      text.gsub!(/(^(?! {4}|\t)[A-Za-z0-9]+_[A-Za-z0-9]+_[A-Za-z0-9]\w*)/) do |x|
-        x.gsub('_', '\_') if x.split('').sort.join[0..1] == '__'
-      end
- 
-      # in very clear cases, let newlines become <br /> tags
-      #text.gsub!(/(\A|^$\n)(^\w[^\n]*\n)(^\w[^\n]*$)+/m) do |x|
-      #  x.gsub(/^(.+)$/, "\\1  ")
-      text.gsub!(/^[\w\<][^\n]*\n+/) do |x|
-        x =~ /\n{2}/ ? x : (x.strip!; x << "  \n")
+      text.gsub!(/(^(?! {4}|\t)\w+_\w+_\w[\w_]*)/) do |x|
+        x.gsub('_', '\_') if x.split('').sort.to_s[0..1] == '__'
       end
     end
   end
