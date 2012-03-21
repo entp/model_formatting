@@ -42,9 +42,9 @@ module ModelFormatting
       
       it "bolds the string 'Name'" do
         record = Simple.new
-        record.body = "My name is\n__Name__"
+        record.body = "My name is __Name__"
         record.save
-        record.formatted_body.should == %(<div><p>My name is<br>\n<strong>Name</strong></p></div>)
+        record.formatted_body.should == %(<div><p>My name is <strong>Name</strong></p></div>)
       end
 
       it "preserves leading spaces in code blocks" do
