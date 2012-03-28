@@ -182,6 +182,13 @@ module ModelFormatting
       text.gsub!(/(^(?! {4}|\t)\w+_\w+_\w[\w_]*)/) do |x|
         x.gsub('_', '\_') if x.split('').sort.to_s[0..1] == '__'
       end
+
+      # in very clear cases, let newlines become <br /> tags
+      #text.gsub!(/(\A|^$\n)(^\w[^\n]*\n)(^\w[^\n]*$)+/m) do |x|
+      #  x.gsub(/^(.+)$/, "\\1  ")
+      text.gsub!(/^[\w\<][^\n]*\n+/) do |x|
+        x =~ /\n{2}/ ? x : (x.strip!; x << "  \n")
+      end
     end
   end
 
