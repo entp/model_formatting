@@ -88,7 +88,8 @@ class ModelFormattingTest < Test::Unit::TestCase
   
   it "treats linebreaks correctly" do
     ModelFormatting.process(:html, "Line breaks should not be treated as\nnew paragraphs.  They are not paragraphs.\n\nHowever, when a line is skipped, that is a paragraph.\nGMail, and basically every comment or submission form on the \nweb work this way.").should == \
-      "<div><p>Line breaks should not be treated as new paragraphs. They are\nnot paragraphs.</p>\n<p>However, when a line is skipped, that is a paragraph. GMail, and\nbasically every comment or submission form on the web work this\nway.</p></div>"
+      "<div><p>Line breaks should not be treated as<br>\nnew paragraphs. They are not paragraphs.</p>\n<p>However, when a line is skipped, that is a paragraph.<br>\nGMail, and basically every comment or submission form on the<br>\nweb work this way.</p></div>"
+
   end
 
   describe "GFM" do
@@ -107,7 +108,16 @@ class ModelFormattingTest < Test::Unit::TestCase
     it "escapes two or more underscores inside words" do
       assert_equal "foo\\_bar\\_baz", ModelFormatting.gfm("foo_bar_baz")
     end
-  
+
+    it "turns newlines into br tags in simple cases" do
+      assert_equal "foo  \nbar", ModelFormatting.gfm("foo\nbar")
+    end
+
+    it "converts newlines in all groups" do
+      assert_equal "apple  \npear  \norange  \nbanana\n\nruby  \npython  \nerlang  \njavascript",
+        ModelFormatting.gfm("apple\npear\norange\nbanana\n\nruby\npython\nerlang\njavascript")
+    end
+
     it "does not not convert newlines in lists" do
       assert_equal "# foo\n# bar", ModelFormatting.gfm("# foo\n# bar")
       assert_equal "* foo\n* bar", ModelFormatting.gfm("* foo\n* bar")
