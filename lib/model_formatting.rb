@@ -193,12 +193,19 @@ module ModelFormatting
   end
 
   begin
-    require 'rdiscount'
+    require 'redcarpet'
     def self.process_markdown(text)
-      RDiscount.new(text).to_html
+      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
+        :no_intra_emphasis => true,
+        :tables => true,
+        :fenced_code_blocks => true,
+        :space_after_headers => true,
+#        :hard_wrap => true, 
+#        :with_toc_data => true, 
+        :autolink => true).render(text)
     end
   rescue LoadError
-    puts "No RDiscount gem found.  `gem install rdiscount`."
+    puts "No Redcarpet gem found.  `gem install redcarpet`."
     def self.process_markdown(text)
       text
     end

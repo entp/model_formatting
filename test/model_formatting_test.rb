@@ -71,11 +71,11 @@ class ModelFormattingTest < Test::Unit::TestCase
   end
   
   it "converts @@@ with params to code blocks" do
-    ModelFormatting.process(:html, "foo\n@@@ ninja\nbar\n@@@\n@@@\nbaz\n@@@\n@@@ wah wah \n \n").should == "<div><p>foo</p>\n<pre>\n<code class=\"ninja\">bar</code>\n</pre>\n<pre>\n<code>baz</code>\n</pre>\n<p>@@@ wah wah</p></div>"
+    ModelFormatting.process(:html, "foo\n@@@ ninja\nbar\n@@@\n@@@\nbaz\n@@@\n@@@ wah wah \n \n").should == "<div><p>foo<br></p>\n<pre>\n<code class=\"ninja\">bar</code>\n</pre>\n<pre>\n<code>baz</code>\n</pre>\n@@@ wah wah</div>"
   end
   
   it "fixes irregular number of @@@'s" do
-    ModelFormatting.process(:html, "foo\n@@@\nbar\n@@@\n@@@\nbaz\n@@@\n@@@ wah wah \n \n@@@").should == "<div><p>foo</p>\n<pre>\n<code>bar</code>\n</pre>\n<pre>\n<code>baz</code>\n</pre>\n<p>@@@ wah wah</p>\n<pre>\n\n</pre></div>"
+    ModelFormatting.process(:html, "foo\n@@@\nbar\n@@@\n@@@\nbaz\n@@@\n@@@ wah wah \n \n@@@").should == "<div><p>foo<br></p>\n<pre>\n<code>bar</code>\n</pre>\n<pre>\n<code>baz</code>\n</pre>\n@@@ wah wah\n<pre>\n\n</pre></div>"
   end
   
   it "converts @@@ with params to code blocks with text format" do
@@ -92,7 +92,7 @@ class ModelFormattingTest < Test::Unit::TestCase
 
   end
 
-  describe "GFM" do
+  context "GFM" do
     it "does not touch single underscores inside words" do
       assert_equal "foo_bar", ModelFormatting.gfm("foo_bar")
     end

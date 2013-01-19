@@ -1,4 +1,4 @@
-require 'rake/gempackagetask'
+require 'rubygems/package_task'
 require 'rake/testtask'
 
 spec = Gem::Specification.new do |s|
@@ -8,14 +8,14 @@ spec = Gem::Specification.new do |s|
   s.email = "company@entp.com"
   s.homepage = "http://github.com/entp"
   s.platform = Gem::Platform::RUBY
-  s.summary = "Automatically format model attributes using rdiscount and Tender/Lighthouse extensions."
+  s.summary = "Automatically format model attributes using redcarpet (markdown) and Tender/Lighthouse extensions."
   s.files = FileList['[a-zA-Z]*', 'bin/*', 'lib/**/*', 'rails/**/*', 'test/**/*']
   s.has_rdoc = false
   s.extra_rdoc_files = ["README"]
-  s.add_dependency("rdiscount", "~>1.6.5")
-  s.add_dependency("actionpack", "~>2.3.9")
-  s.add_dependency("activerecord", "~>2.3.9")
-  s.add_dependency("activesupport", "~>2.3.9")
+  s.add_dependency("redcarpet", "~>2.2")
+  s.add_dependency("actionpack", "~>2.3.15")
+  s.add_dependency("activerecord", "~>2.3.15")
+  s.add_dependency("activesupport", "~>2.3.15")
   s.add_dependency("tidy_ffi", "~>0.1.2")
   s.add_development_dependency("jeremymcanally-context", "~>0.5.5")
   s.add_development_dependency("jeremymcanally-matchy", "~>0.1.0")
@@ -23,7 +23,7 @@ end
 
 
 desc 'Build the gem.'
-Rake::GemPackageTask.new(spec) do |pkg|
+Gem::PackageTask.new(spec) do |pkg|
   pkg.gem_spec = spec
 end
 
