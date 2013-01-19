@@ -2,7 +2,7 @@ source :gemcutter
 source "http://gem.entp.com"
 
 gem 'rake'
-gem 'rdiscount', '~> 1.6.5'
+gem 'redcarpet', '~> 2.2'
 gem 'actionpack', '~> 3.0.0'
 gem 'activerecord', '~> 3.0.0'
 gem 'activesupport', '~> 3.0.0'

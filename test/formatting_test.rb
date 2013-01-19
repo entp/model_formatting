@@ -24,7 +24,7 @@ module ModelFormatting
       formats :body
     end
   
-    describe "Simple with formatting" do
+    context "Simple with formatting" do
       it "has attribute from #formats arguments" do
         Simple.model_formatting_attributes[:body].should == "formatted_body"
       end
@@ -68,7 +68,7 @@ module ModelFormatting
       end
     end
 
-    describe "base with after callback" do
+    context "base with after callback" do
       it "does not leave mkd-extraction artifacts" do
         record = BaseWithAfter.new
         record.body = File.read(File.dirname(__FILE__) + '/fixtures/mkd-extraction.txt')
@@ -94,7 +94,7 @@ module ModelFormatting
       end
     end
   
-    describe "Post with formatting" do
+    context "Post with formatting" do
       it "has attribute from #formats arguments" do
         Post.model_formatting_attributes[:body].should == "formatted_body"
       end
@@ -115,7 +115,7 @@ module ModelFormatting
         Post.before_save.should == :format_content_with_model_formatting
       end
 
-      describe "being saved" do
+      context "being saved" do
         before do
           @record = Post.new
           @record.body  = 'booya'
@@ -152,7 +152,7 @@ module ModelFormatting
       end
     end
   
-    describe "ChildPost with formatting" do
+    context "ChildPost with formatting" do
       it "has attribute from #formats arguments" do
         ChildPost.model_formatting_attributes[:body].should == "formatted_body"
       end
@@ -169,7 +169,7 @@ module ModelFormatting
         ChildPost.before_save.should == :format_content_with_model_formatting
       end
 
-      describe "being saved" do
+      context "being saved" do
         before do
           @record = ChildPost.new
           @record.body = 'booya'

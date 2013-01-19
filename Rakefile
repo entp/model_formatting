@@ -1,18 +1,18 @@
-require 'rake/gempackagetask'
+require 'rubygems/package_task'
 require 'rake/testtask'
 
 spec = Gem::Specification.new do |s|
   s.name = "model_formatting"
-  s.version = "0.3.3"
+  s.version = "0.5"
   s.author = "ENTP"
   s.email = "company@entp.com"
   s.homepage = "http://github.com/entp"
   s.platform = Gem::Platform::RUBY
-  s.summary = "Automatically format model attributes using rdiscount and Tender/Lighthouse extensions."
+  s.summary = "Automatically format model attributes using redcarpet (markdown) and Tender/Lighthouse extensions."
   s.files = FileList['[a-zA-Z]*', 'bin/*', 'lib/**/*', 'rails/**/*', 'test/**/*']
   s.has_rdoc = false
   s.extra_rdoc_files = ["README"]
-  s.add_dependency("rdiscount", "~>1.6.5")
+  s.add_dependency("redcarpet", "~>2.2")
   s.add_dependency("actionpack", "~>3.0.0")
   s.add_dependency("activerecord", "~>3.0.0")
   s.add_dependency("activesupport", "~>3.0.0")
@@ -23,7 +23,7 @@ end
 
 
 desc 'Build the gem.'
-Rake::GemPackageTask.new(spec) do |pkg|
+Gem::PackageTask.new(spec) do |pkg|
   pkg.gem_spec = spec
 end
 
