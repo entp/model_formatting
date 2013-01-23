@@ -178,11 +178,6 @@ module ModelFormatting
 
   def self.gfm(text)
     extract_tag(text, :pre) do |txt| 
-      # prevent foo_bar_baz from ending up with an italic word in the middle
-      text.gsub!(/(^(?! {4}|\t)\w+_\w+_\w[\w_]*)/) do |x|
-        x.gsub('_', '\_') if x.split('').sort.to_s[0..1] == '__'
-      end
-
       # in very clear cases, let newlines become <br /> tags
       #text.gsub!(/(\A|^$\n)(^\w[^\n]*\n)(^\w[^\n]*$)+/m) do |x|
       #  x.gsub(/^(.+)$/, "\\1  ")
@@ -199,10 +194,8 @@ module ModelFormatting
         :no_intra_emphasis => true,
         :tables => true,
         :fenced_code_blocks => true,
-        :space_after_headers => true,
-#        :hard_wrap => true, 
-#        :with_toc_data => true, 
-        :autolink => true).render(text)
+        :space_after_headers => true
+      ).render(text)
     end
   rescue LoadError
     puts "No Redcarpet gem found.  `gem install redcarpet`."
