@@ -105,8 +105,8 @@ class ModelFormattingTest < Test::Unit::TestCase
       assert_equal "<pre>\nfoo_bar_baz\n</pre>", ModelFormatting.gfm("<pre>\nfoo_bar_baz\n</pre>")
     end
   
-    it "escapes two or more underscores inside words" do
-      assert_equal "foo\\_bar\\_baz", ModelFormatting.gfm("foo_bar_baz")
+    it "does not touch underscores inside words" do
+      assert_equal "foo_bar_baz", ModelFormatting.gfm("foo_bar_baz")
     end
 
     it "turns newlines into br tags in simple cases" do
