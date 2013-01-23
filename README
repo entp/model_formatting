@@ -1,3 +1,9 @@
-This is a plugin for Rails 2.2.x that performs automatic text-to-html formatting.
+This is a plugin for Rails that performs automatic text-to-html formatting. 
+
+For rails 2.3, please use the 'rails23' branch (you can specify ~> 0.2 in your gemfile)
+
+It uses the 'redcarpet' markdown library with a few other pre-processing steps.
+Note: tests do not run on 1.9.x series due to a bug in the test frameworks we use,
+but the code works fine.
 
 It is extracted from and used by [Tender](http://tenderapp.com/) and [Lighthouse](http://lighthouseapp.com/).
