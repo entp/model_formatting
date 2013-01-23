@@ -211,7 +211,7 @@ module ModelFormatting
       begin
         tidy = TidyFFI::Tidy.new(text)
         tidy.options.input_encoding = 'utf8'
-        tidy.options.show_body_only = true
+        tidy.options.show_body_only = "yes"
         tidy.options.new_inline_tags = "video source"
         tidy.options.force_output = true
         tidy.clean.strip
