@@ -207,12 +207,20 @@ module ModelFormatting
   begin
     require 'tidy_ffi'
     def self.process_tidy(text)
-      tidy = TidyFFI::Tidy.new(text)
-      tidy.options.input_encoding  = 'utf8'
-      tidy.options.show_body_only  = "yes"
-      tidy.options.new_inline_tags = "video source"
-      tidy.options.force_output    = true
-      tidy.clean.strip
+      begin
+        tidy = TidyFFI::Tidy.new(text)
+        tidy.options.input_encoding = 'utf8'
+        tidy.options.show_body_only = true
+        tidy.options.new_inline_tags = "video source"
+        tidy.options.force_output = true
+        tidy.clean.strip
+      rescue ArgumentError => e
+        if e.to_s == "string contains null byte"
+          text
+        else
+          raise e
+        end
+      end
     end
   rescue LoadError
     puts "No TidyFFI gem found.  `gem install tidy_ffi`."
