@@ -2,6 +2,7 @@ source :gemcutter
 source "http://gem.entp.com"
 
 gem 'rake'
+gem 'rack', '~> 1.1.3'
 gem 'actionpack', '~> 2.3.15'
 gem 'activerecord', '~> 2.3.15'
 gem 'activesupport', '~> 2.3.15'
