@@ -62,6 +62,21 @@ module ModelFormatting
       end
     end
 
+    class SimpleWithToc < Base
+      formats :body do
+        white_list.allowed_attributes << 'id'
+      end
+    end
+
+    context "SimpleWithToc with formatting" do
+      it "creates anchors for titles" do
+        record = Simple.new
+        record.body = "# Title\n\nFoo."
+        record.save
+        record.formatted_body.should ==%(<div><h1 id="toc_0">Title</h1>\n<p>Foo.</p></div>)
+      end
+    end
+
     class BaseWithAfter < Base
       formats :body do
         after { |format, text, options| text }
