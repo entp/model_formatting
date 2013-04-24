@@ -1,5 +1,6 @@
 require 'cgi'
 require 'active_support' # NilClass#blank?
+require 'redcarpet_custom'
 module ModelFormatting
   class Part < Array
     attr_reader :format
@@ -190,7 +191,7 @@ module ModelFormatting
   begin
     require 'redcarpet'
     def self.process_markdown(text)
-      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
+      markdown = Redcarpet::Markdown.new(Redcarpet::Render::Custom,
         :no_intra_emphasis => true,
         :tables => true,
         :fenced_code_blocks => true,
