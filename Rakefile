@@ -3,12 +3,12 @@ require 'rake/testtask'
 
 spec = Gem::Specification.new do |s|
   s.name = "model_formatting"
-  s.version = "0.5"
+  s.version = "0.6"
   s.author = "ENTP"
   s.email = "company@entp.com"
   s.homepage = "http://github.com/entp"
   s.platform = Gem::Platform::RUBY
-  s.summary = "Automatically format model attributes using redcarpet (markdown) and Tender/Lighthouse extensions."
+  s.summary = "Automatically format model attributes using Redcarpet (markdown) and Tender/Lighthouse extensions."
   s.files = FileList['[a-zA-Z]*', 'bin/*', 'lib/**/*', 'rails/**/*', 'test/**/*']
   s.has_rdoc = false
   s.extra_rdoc_files = ["README"]
