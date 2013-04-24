@@ -7,6 +7,11 @@ class ModelFormattingTest < Test::Unit::TestCase
     parts.first.class.should == ModelFormatting::FormattedPart
     parts.first.should == 'foo'
   end
+  
+  it "generates TOC titles" do
+   ModelFormatting.process(:html, "# title one\n\n# title two\n\n## title one").should == \
+    "<div><a name=\"title-one\" class=\"anchor\" href=\"#title-one\" id=\n\"title-one\"></a>\n<h1 id=\"title-one\">title one</h1>\n<a name=\"title-two\" class=\"anchor\" href=\"#title-two\" id=\n\"title-two\"></a>\n<h1 id=\"title-two\">title two</h1>\n<a name=\"title-one_1\" class=\"anchor\" href=\"#title-one_1\" id=\n\"title-one_1\"></a>\n<h2 id=\"title-one_1\">title one</h2></div>"
+  end
 
   it "parses empty code block into array of single CodeBlock" do
     parts = ModelFormatting.parse_text_parts(nil, nil, "@@@ foo\n@@@")
