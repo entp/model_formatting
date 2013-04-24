@@ -190,8 +190,7 @@ module ModelFormatting
   begin
     require 'redcarpet'
     def self.process_markdown(text)
-      renderer = Redcarpet::Render::HTML.new(:with_toc_data => true)
-      markdown = Redcarpet::Markdown.new(renderer,
+      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
         :no_intra_emphasis => true,
         :tables => true,
         :fenced_code_blocks => true,
