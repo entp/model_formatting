@@ -21,7 +21,7 @@ module Redcarpet::Render
         end
       end
       @headers << permalink
-      %(\n<a name="#{permalink}" class="anchor" href="##{permalink}"><span class="anchor-icon"></span></a><h#{level} id=\"#{permalink}\">#{title}</h#{level}>\n)
+      %(\n<h#{level} id=\"#{permalink}\"><a name="#{permalink}" class="anchor" href="##{permalink}"></a>#{title}</h#{level}>\n)
     end
   end
 end

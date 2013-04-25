@@ -10,7 +10,7 @@ class ModelFormattingTest < Test::Unit::TestCase
   
   it "generates TOC titles" do
    ModelFormatting.process(:html, "# title one\n\n# title two\n\n## title one").should == \
-    "<div><a name=\"title-one\" class=\"anchor\" href=\"#title-one\" id=\n\"title-one\"></a>\n<h1 id=\"title-one\">title one</h1>\n<a name=\"title-two\" class=\"anchor\" href=\"#title-two\" id=\n\"title-two\"></a>\n<h1 id=\"title-two\">title two</h1>\n<a name=\"title-one_1\" class=\"anchor\" href=\"#title-one_1\" id=\n\"title-one_1\"></a>\n<h2 id=\"title-one_1\">title one</h2></div>"
+     "<div><h1 id=\"title-one\"><a name=\"title-one\" class=\"anchor\" href=\n\"#title-one\" id=\"title-one\"></a>title one</h1>\n<h1 id=\"title-two\"><a name=\"title-two\" class=\"anchor\" href=\n\"#title-two\" id=\"title-two\"></a>title two</h1>\n<h2 id=\"title-one_1\"><a name=\"title-one_1\" class=\"anchor\" href=\n\"#title-one_1\" id=\"title-one_1\"></a>title one</h2></div>"
   end
 
   it "parses empty code block into array of single CodeBlock" do
