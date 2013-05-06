@@ -8,7 +8,7 @@ module Redcarpet::Render
       # permalink = "#{level}-#{title.gsub(/\W+/, "-")}"
       
       # .. or just use title. you might like a better regex here, too
-      permalink = title.gsub(/\W+/, "-")
+      permalink = title.gsub(/\W+/, "-").downcase
       
       # for extra credit: implement this as its own method
       if @headers.include?(permalink)
