@@ -98,7 +98,7 @@ module ModelFormatting
     format == :html ? "<div>#{string}</div>" : string
   end
 
-  CODEBLOCK_RE = /^@@@( ([a-z]+)\s*)?$/
+  CODEBLOCK_RE = /^(@@@|```)( ([a-z]+)\s*)?$/
 
   # Parse a string into a given array of [CodeBlcok, FormattedBlock, CodeBlock, FormattedBlock]
   #
@@ -123,7 +123,7 @@ module ModelFormatting
           current_part = nil
         else
           if current_part then parts << current_part end
-          current_part = CodePart.new(format, $2)
+          current_part = CodePart.new(format, $3)
         end
         in_code_block = !in_code_block
       else
@@ -192,7 +192,6 @@ module ModelFormatting
     require 'redcarpet'
     def self.process_markdown(text)
       markdown = Redcarpet::Markdown.new(Redcarpet::Render::Custom,
-        :no_intra_emphasis => true,
         :tables => true,
         :fenced_code_blocks => true,
         :space_after_headers => true
