@@ -31,7 +31,7 @@ module ModelFormatting::Init
     unless respond_to?(:model_formatting_attributes)
       # use all these attributes instead of a single ModelFormatting::Config because
       # it's easier to support subclassing.
-      class_inheritable_accessor :model_formatting_attributes, 
+      class_attribute :model_formatting_attributes, 
         :model_formatting_white_list, :model_formatting_context, 
         :model_formatting_before_callback, :model_formatting_after_callback
       send :include, ModelFormatting::InstanceMethods

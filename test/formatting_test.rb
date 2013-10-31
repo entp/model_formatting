@@ -5,7 +5,7 @@ module ModelFormatting
   class Test < Test::Unit::TestCase
     class Base < Struct.new(:body, :formatted_body, :title, :title_html, :bio, :full_bio)
       ModelFormatting::Init.setup_on self
-      class_inheritable_accessor :before_save_callback
+      class_attribute :before_save_callback
 
       def self.before_save(method = nil)
         if method
