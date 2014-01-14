@@ -89,10 +89,10 @@ module ModelFormatting
       end
     end
     if format == :html
+      string = process_tidy(string)
       if options[:white_list]
         string = options[:white_list].sanitize(string)
       end
-      string = process_tidy(string)
     end
     string.strip!
     format == :html ? "<div>#{string}</div>" : string
