@@ -60,6 +60,13 @@ module ModelFormatting
         record.save
         record.formatted_body.should ==%(<div><p>Enc&ouml;ded &#592; \\Upload \\upload</p></div>)
       end
+
+      it "formats incorrect html" do
+        record = Simple.new
+        record.body = "<a href=http://google.com>google</a>"
+        record.save
+        record.formatted_body.should ==%(<div><p><a href="http://google.com">google</a></p></div>)
+      end
     end
 
     class BaseWithAfter < Base
