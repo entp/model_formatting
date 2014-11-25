@@ -12,11 +12,10 @@ spec = Gem::Specification.new do |s|
   s.files = FileList['[a-zA-Z]*', 'bin/*', 'lib/**/*', 'rails/**/*', 'test/**/*']
   s.has_rdoc = false
   s.extra_rdoc_files = ["README"]
-  s.add_dependency("rack", "~>1.1.3")
   s.add_dependency("redcarpet", "~>2.2")
-  s.add_dependency("actionpack", "~>2.3.15")
-  s.add_dependency("activerecord", "~>2.3.15")
-  s.add_dependency("activesupport", "~>2.3.15")
+  s.add_dependency("actionpack", "~>2.3")
+  s.add_dependency("activerecord", "~>2.3")
+  s.add_dependency("activesupport", "~>2.3")
   s.add_dependency("tidy_ffi", "~>0.1.2")
   s.add_development_dependency("jeremymcanally-context", "~>0.5.5")
   s.add_development_dependency("jeremymcanally-matchy", "~>0.1.0")
