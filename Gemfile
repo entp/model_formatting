@@ -1,16 +1,17 @@
-source :gemcutter
 source "http://gem.entp.com"
+source "https://rubygems.org"
 
 gem 'rake'
-gem 'rack', '~> 1.1.3'
-gem 'actionpack', '~> 2.3.18'
-gem 'activerecord', '~> 2.3.18'
-gem 'activesupport', '~> 2.3.18'
+gem 'rack', '~> 1'
+gem 'actionpack', '~> 2.3'
+gem 'activerecord', '~> 2.3'
+gem 'activesupport', '~> 2.3'
 gem 'redcarpet', '~> 2.2'
-gem 'tidy_ffi', '~> 0.1'
+gem 'tidy_ffi', '~> 0.1.5'
 
 group :development, :test do
   gem 'context', '0.5.5'
   gem 'matchy', '~>0.4.0'
-  gem 'ruby-debug'
+  gem 'ruby-debug',   :platform => :ruby_18
+  gem 'ruby-debug19', :platform => :ruby_19
 end
