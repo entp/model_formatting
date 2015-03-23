@@ -1,5 +1,4 @@
 GEM
-  remote: http://gem.entp.com/
   remote: https://rubygems.org/
   specs:
     actionpack (2.3.18)
@@ -16,7 +15,6 @@ GEM
       rbx-require-relative (> 0.0.4)
     linecache19 (0.5.12)
       ruby_core_source (>= 0.1.4)
-    matchy (0.4.0)
     rack (1.1.5)
     rake (0.9.2)
     rbx-require-relative (0.0.9)
@@ -47,10 +45,9 @@ DEPENDENCIES
   activerecord (~> 2.3)
   activesupport (~> 2.3)
   context (= 0.5.5)
-  matchy (~> 0.4.0)
   rack (~> 1)
   rake
   redcarpet (~> 2.2)
   ruby-debug
   ruby-debug19
-  tidy_ffi (~> 0.1.5)
+  tidy_ffi
