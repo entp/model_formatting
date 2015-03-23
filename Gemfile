@@ -6,7 +6,7 @@ gem 'actionpack', '~> 2.3'
 gem 'activerecord', '~> 2.3'
 gem 'activesupport', '~> 2.3'
 gem 'redcarpet', '~> 2.2'
-gem 'tidy_ffi'
+gem 'tidy_ffi', :git => "https://github.com/courtenay/tidy_ffi.git"
 
 group :development, :test do
   gem 'context', '0.5.5'
